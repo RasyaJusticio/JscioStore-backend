@@ -15,7 +15,7 @@ class AuthController extends Controller
     {
         $fields = $request->validated();
 
-        $username = Str::slug($fields['full_name']) . '-' . Str::random(8) . now()->format('YmdHis');
+        $username = Str::slug($fields['full_name']).'-'.Str::random(8).now()->format('YmdHis');
 
         User::create([
             'username' => $username,
