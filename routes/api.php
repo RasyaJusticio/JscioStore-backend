@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\User\UserShipAddressController;
 use Illuminate\Support\Facades\Route;
@@ -12,4 +13,8 @@ Route::group(['prefix' => 'v1'], function () {
     });
 
     Route::apiResource('ship-address', UserShipAddressController::class)->middleware(['auth:sanctum']);
+
+    Route::group(['middleware' => ['auth:sanctum', 'admin-only'], 'prefix' => 'dashboard'], function () {
+        Route::apiResource('category', AdminCategoryController::class);
+    });
 });
