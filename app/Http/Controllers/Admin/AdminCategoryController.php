@@ -15,7 +15,7 @@ class AdminCategoryController extends Controller
      */
     public function index()
     {
-        return $this->success(Category::all());
+        return $this->success('Categories fetched successfully', Category::all());
     }
 
     /**
@@ -35,7 +35,7 @@ class AdminCategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return $this->success($category);
+        return $this->success('Category fetched successfully', $category);
     }
 
     /**
