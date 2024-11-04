@@ -55,6 +55,8 @@ class AdminCategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return $this->success('Category deleted successfully');
     }
 }
