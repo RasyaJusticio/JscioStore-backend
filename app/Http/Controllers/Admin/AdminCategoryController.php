@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Category\AdminCategoryStoreRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -19,9 +20,13 @@ class AdminCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AdminCategoryStoreRequest $request)
     {
-        //
+        $fields = $request->validated();
+
+        Category::create($fields);
+
+        return $this->success('Category created successfully', 201);
     }
 
     /**
