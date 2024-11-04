@@ -34,7 +34,7 @@ class AdminCategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return $this->success($category);
     }
 
     /**
