@@ -17,15 +17,18 @@ class UserShipAddressController extends Controller
     {
         $user = $request->user();
 
-        return $this->success($user->shipAddresses->map(function ($address) {
-            return $address->only([
-                'id',
-                'address',
-                'default',
-                'created_at',
-                'updated_at',
-            ]);
-        }));
+        return $this->success(
+            'Addresses fetched successfully',
+            $user->shipAddresses->map(function ($address) {
+                return $address->only([
+                    'id',
+                    'address',
+                    'default',
+                    'created_at',
+                    'updated_at',
+                ]);
+            })
+        );
     }
 
     /**
@@ -43,7 +46,7 @@ class UserShipAddressController extends Controller
 
         $user->shipAddresses()->create($attr->toArray());
 
-        return $this->success('Address added successfully', 201);
+        return $this->success('Address added successfully', status: 201);
     }
 
     /**
@@ -51,7 +54,7 @@ class UserShipAddressController extends Controller
      */
     public function show(ShipAddress $shipAddress)
     {
-        return $this->success($shipAddress);
+        return $this->success('Adress fetched successfully', $shipAddress);
     }
 
     /**
