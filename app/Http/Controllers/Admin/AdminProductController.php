@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\AdminProductStoreRequest;
+use App\Http\Requests\Admin\Product\AdminProductUpdateRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -40,9 +41,13 @@ class AdminProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(AdminProductUpdateRequest $request, Product $product)
     {
-        //
+        $fields = $request->validated();
+
+        $product->update($fields);
+
+        return $this->success('Product updated successfully');
     }
 
     /**
