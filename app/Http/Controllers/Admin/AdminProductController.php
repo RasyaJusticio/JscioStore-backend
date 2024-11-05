@@ -41,7 +41,7 @@ class AdminProductController extends Controller
      */
     public function show(Product $product)
     {
-        return $this->success('Product fetched successfully', $product);
+        return $this->success('Product fetched successfully', $product->load('categories'));
     }
 
     /**
