@@ -25,7 +25,9 @@ class AdminProductStoreRequest extends BaseFormRequest
             'name' => ['required', 'unique:products,name', 'string', 'between:5,80'],
             'description' => ['required', 'string', 'between:5,1500'],
             'price' => ['required', 'decimal:0,2', 'between:0,999999999.99'],
-            'stock' => ['nullable', 'numeric', 'min:0']
+            'stock' => ['nullable', 'numeric', 'min:0'],
+            'categories' => ['required', 'array', 'min:1'],
+            'categories.*' => ['required', 'numeric', 'exists:categories,id'],
         ];
     }
 }

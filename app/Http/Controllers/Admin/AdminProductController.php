@@ -27,9 +27,13 @@ class AdminProductController extends Controller
     {
         $fields = $request->validated();
 
-        Product::create($fields);
+        $product = Product::create($fields);
 
-        return $this->success('Product created successfully', 201);
+        foreach ($fields['categories'] as $categoryId) {
+            $product->categories()->attach($categoryId);
+        }
+
+        return $this->success('Product created successfully', status: 201);
     }
 
     /**
