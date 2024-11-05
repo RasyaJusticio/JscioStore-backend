@@ -14,7 +14,10 @@ class AdminProductController extends Controller
      */
     public function index()
     {
-        return $this->success('Products fetched successfully', Product::all());
+        return $this->success(
+            'Products fetched successfully',
+            Product::query()->with(['categories'])->get()
+        );
     }
 
     /**
