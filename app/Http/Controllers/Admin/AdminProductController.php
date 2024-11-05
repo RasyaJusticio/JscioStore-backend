@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Product\AdminProductStoreRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -19,9 +20,13 @@ class AdminProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AdminProductStoreRequest $request)
     {
-        //
+        $fields = $request->validated();
+
+        Product::create($fields);
+
+        return $this->success('Product created successfully', 201);
     }
 
     /**
