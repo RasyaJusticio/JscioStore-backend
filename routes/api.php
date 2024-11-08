@@ -22,7 +22,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'product'], function () {
             Route::apiResource('', AdminProductController::class);
             Route::group(['prefix' => '{product}'], function () {
-                Route::post('category', [AdminProductCategoryController::class, 'store']);
+                Route::group(['prefix' => 'category'], function () {
+                    Route::post('attach', [AdminProductCategoryController::class, 'store']);
+                    Route::post('detach', [AdminProductCategoryController::class, 'destroy']);
+                });
             });
         });
     });
