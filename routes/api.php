@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminProductCategoryController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\User\UserShipAddressController;
@@ -17,6 +18,12 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['middleware' => ['auth:sanctum', 'admin-only'], 'prefix' => 'dashboard'], function () {
         Route::apiResource('category', AdminCategoryController::class);
-        Route::apiResource('product', AdminProductController::class);
+
+        Route::group(['prefix' => 'product'], function () {
+            Route::apiResource('', AdminProductController::class);
+            Route::group(['prefix' => '{product}'], function () {
+                Route::post('category', [AdminProductCategoryController::class, 'store']);
+            });
+        });
     });
 });
