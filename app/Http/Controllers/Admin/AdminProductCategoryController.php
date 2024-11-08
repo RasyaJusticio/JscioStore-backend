@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProductCategory\AdminProductCategoryDeleteRequest;
 use App\Http\Requests\Admin\ProductCategory\AdminProductCategoryStoreRequest;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -26,8 +27,14 @@ class AdminProductCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductCategory $productCategory)
+    public function destroy(Product $product, AdminProductCategoryDeleteRequest $request)
     {
-        //
+        $fields = $request->validated();
+
+        foreach ($fields['categories'] as $category) {
+            $product->categories()->detach($category);
+        }
+
+        return $this->success('Product categories updated successfully');
     }
 }
