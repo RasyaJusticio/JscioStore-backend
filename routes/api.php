@@ -20,8 +20,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'admin-only'], 'prefix' => 'dashboard'], function () {
         Route::apiResource('category', AdminCategoryController::class);
 
+        Route::apiResource('product', AdminProductController::class);
         Route::group(['prefix' => 'product'], function () {
-            Route::apiResource('', AdminProductController::class);
             Route::group(['prefix' => '{product}'], function () {
                 Route::group(['prefix' => 'category'], function () {
                     Route::post('attach', [AdminProductCategoryController::class, 'store']);
