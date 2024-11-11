@@ -31,6 +31,7 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::group(['prefix' => 'images'], function () {
                     Route::get('', [AdminProductImageController::class, 'index']);
                     Route::post('', [AdminProductImageController::class, 'store']);
+                    Route::delete('{productImage}', [AdminProductImageController::class, 'destroy']);
                 });
             });
         });

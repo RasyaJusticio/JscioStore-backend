@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductImage\AdminProductImageStoreRequest;
 use App\Models\Product;
 use App\Models\ProductImage;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class AdminProductImageController extends Controller
@@ -18,6 +17,10 @@ class AdminProductImageController extends Controller
 
     public function store(Product $product, AdminProductImageStoreRequest $request)
     {
+        if ($product->images()->count() >= 7) {
+            return $this->fail('You can not upload more than 7 images');
+        }
+
         $fields = $request->validated();
 
         foreach ($fields['images'] as $image) {
@@ -35,6 +38,12 @@ class AdminProductImageController extends Controller
 
     public function destroy(Product $product, ProductImage $productImage)
     {
-        //
+        if (Storage::disk('public')->exists($productImage->url)) {
+            Storage::disk('public')->delete($productImage->url);
+        }
+
+        $productImage->delete();
+
+        return $this->success('Product image deleted successfully');
     }
 }
