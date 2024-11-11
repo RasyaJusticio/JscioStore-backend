@@ -26,6 +26,10 @@ Route::group(['prefix' => 'v1'], function () {
                     Route::post('attach', [AdminProductCategoryController::class, 'store']);
                     Route::post('detach', [AdminProductCategoryController::class, 'destroy']);
                 });
+
+                Route::group(['prefix' => 'images'], function () {
+                    Route::get('', [AdminProductController::class, 'index']);
+                });
             });
         });
     });
