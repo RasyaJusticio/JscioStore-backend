@@ -16,7 +16,7 @@ class AdminProductController extends Controller
     {
         return $this->success(
             'Products fetched successfully',
-            Product::query()->with(['categories'])->get()
+            Product::query()->with(['categories', 'images'])->get()
         );
     }
 
@@ -41,7 +41,7 @@ class AdminProductController extends Controller
      */
     public function show(Product $product)
     {
-        return $this->success('Product fetched successfully', $product->load('categories'));
+        return $this->success('Product fetched successfully', $product->load(['categories', 'images']));
     }
 
     /**
